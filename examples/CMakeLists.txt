@@ -21,7 +21,7 @@ target_compile_options(example PRIVATE
     -Wnull-dereference
     -Wuseless-cast
     -Wdouble-promotion)
-target_compile_features(example PRIVATE cxx_std_17)
+target_compile_features(example PRIVATE cxx_std_14)
 
 # SFML 
 

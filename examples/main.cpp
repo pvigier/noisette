@@ -80,7 +80,7 @@ int main()
     auto texture = generateNoise();
 
     // Display the texture
-    auto window = sf::RenderWindow(sf::VideoMode(TextureWidth, TextureHeight), "noisette");
+    sf::RenderWindow window(sf::VideoMode(TextureWidth, TextureHeight), "noisette");
     window.setFramerateLimit(60);
     auto sprite = sf::Sprite(texture);
 
