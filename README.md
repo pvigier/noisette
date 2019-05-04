@@ -9,5 +9,3 @@ Features:
 * very simple
 * fast
 * all functions are `constexpr` and `noexcept`
-
-For now, it requires a compiler that has `constexpr` math functions (gcc does). I may modify that later.

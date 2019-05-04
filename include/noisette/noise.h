@@ -20,24 +20,28 @@
 namespace nst
 {
 
-constexpr auto Sqrt2 = std::sqrt(2.0);
-constexpr auto Pi = 4.0 * std::atan(1.0);
+constexpr auto Sqrt2 = 1.4142135623730950;
+constexpr auto Pi = 3.1415926535897932;
 constexpr auto MaxInt = static_cast<double>(std::numeric_limits<uint64_t>::max());
-constexpr auto NbGradients = std::size_t(128);
-
-constexpr std::array<std::pair<double, double>, NbGradients> generate_gradients() noexcept
-{
-    auto gradients = std::array<std::pair<double, double>, NbGradients>();
-    for (auto i = std::size_t(0); i < NbGradients; ++i)
-    {
-        auto angle = 2.0 * Pi * static_cast<double>(i) / static_cast<double>(NbGradients);
-        gradients[i].first = std::cos(angle);
-        gradients[i].second = std::sin(angle);
-    }
-    return gradients;
-}
-
-constexpr auto Gradients = generate_gradients();
+constexpr auto Gradients = std::array<std::pair<double, double>, 16>
+{{
+	{1.0, 0.0},
+	{0.92387953251128674, 0.38268343236508978},
+	{0.70710678118654757, 0.70710678118654746},
+	{0.38268343236508984, 0.92387953251128674},
+	{0.0, 1.0},
+	{-0.38268343236508973, 0.92387953251128674},
+	{-0.70710678118654746, 0.70710678118654757},
+	{-0.92387953251128674, 0.38268343236508989},
+	{-1.0, 0.0},
+	{-0.92387953251128685, -0.38268343236508967},
+	{-0.70710678118654768, -0.70710678118654746},
+	{-0.38268343236509034, -0.92387953251128652},
+	{-1.0, -1.0},
+	{0.38268343236509, -0.92387953251128663},
+	{0.70710678118654735, -0.70710678118654768},
+	{0.92387953251128652, -0.38268343236509039}
+}};
 
 constexpr uint64_t integer_noise(uint64_t i) noexcept
 {
@@ -87,10 +91,10 @@ constexpr double perlin_noise_2d(uint64_t seed, double x, double y) noexcept
     auto u = x - static_cast<double>(i);
     auto v = y - static_cast<double>(j);
     // Gradients
-    const auto& grad00 = Gradients[integer_noise_3d(seed, i    , j    ) % NbGradients];
-    const auto& grad10 = Gradients[integer_noise_3d(seed, i + 1, j    ) % NbGradients];
-    const auto& grad01 = Gradients[integer_noise_3d(seed, i    , j + 1) % NbGradients];
-    const auto& grad11 = Gradients[integer_noise_3d(seed, i + 1, j + 1) % NbGradients];
+    const auto& grad00 = Gradients[integer_noise_3d(seed, i    , j    ) % Gradients.size()];
+    const auto& grad10 = Gradients[integer_noise_3d(seed, i + 1, j    ) % Gradients.size()];
+    const auto& grad01 = Gradients[integer_noise_3d(seed, i    , j + 1) % Gradients.size()];
+    const auto& grad11 = Gradients[integer_noise_3d(seed, i + 1, j + 1) % Gradients.size()];
     // Ramps
     auto n00 = grad00.first * u         + grad00.second * v;
     auto n10 = grad10.first * (u - 1.0) + grad10.second * v;
