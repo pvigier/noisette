@@ -88,6 +88,7 @@ constexpr double poly_interp(double t) noexcept
 
 constexpr double perlin_noise_2d(uint64_t seed, double x, double y) noexcept
 {
+    // WARNING: x and y must be positive
     auto i = static_cast<uint64_t>(x);
     auto j = static_cast<uint64_t>(y);
     auto u = x - static_cast<double>(i);

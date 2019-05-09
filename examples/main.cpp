@@ -21,7 +21,7 @@
 #include <algorithm>
 // SFML
 #include <SFML/Graphics.hpp>
-// MyGAL
+// noisette
 #include <noisette/noise.h>
 
 using namespace nst;
