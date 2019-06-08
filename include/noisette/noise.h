@@ -18,6 +18,7 @@
 #pragma once
 
 #include <cmath>
+#include <array>
 
 namespace nst
 {
